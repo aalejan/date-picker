@@ -18979,11 +18979,14 @@ var _dateFns = require("date-fns");
 var datePickerBtn = document.querySelector('.date-picker-button');
 var datePicker = document.querySelector('.date-picker');
 var datePickerHeaderText = document.querySelector('.current-month');
-var prevMonthButton = documet.querySelector('.prev-month-button');
+var prevMonthButton = document.querySelector('.prev-month-button');
 var nextMonthButton = document.querySelector('.next-month-button');
+var dateGrid = document.querySelector('.date-picker-grid-dates');
+var currentDate = new Date();
 datePickerBtn.addEventListener('click', function (e) {
   datePicker.classList.toggle('show');
   var selectedDate = (0, _dateFns.fromUnixTime)(datePickerBtn.dataset.selectedDate);
+  currentDate = selectedDate;
   setupDatePicker(selectedDate);
 });
 
@@ -18993,16 +18996,31 @@ function setDate(date) {
 }
 
 function setupDatePicker(selectedDate) {
-  datePickerHeaderText.innerText = (0, _dateFns.format)(selectedDate, 'MMMM - yyyy');
-  setUpMonthButtons(selectedDate);
+  datePickerHeaderText.innerText = (0, _dateFns.format)(currentDate, 'MMMM - yyyy');
+  setupDates(selectedDate);
 }
 
-function setUpMonthButtons(selectedDate) {
-  nextMonthButton.addEventListener('click', function () {
-    setupDatePicker(selectedDate);
+function setupDates(selectedDate) {
+  var firstWeekStart = (0, _dateFns.startOfWeek)((0, _dateFns.startOfMonth)(currentDate));
+  var lastWeekEnd = (0, _dateFns.endOfWeek)((0, _dateFns.endOfMonth)(currentDate));
+  var dates = (0, _dateFns.eachDayOfInterval)({
+    start: firstWeekStart,
+    end: lastWeekEnd
+  });
+  dateGrid.innerHTML = '';
+  dates.forEach(function (date) {
+    console.log(date);
   });
 }
 
+nextMonthButton.addEventListener('click', function () {
+  setupDatePicker((0, _dateFns.addMonths)(currentDate, 1));
+  setupDatePicker();
+});
+prevMonthButton.addEventListener('click', function () {
+  currentDate = (0, _dateFns.subMonths)(currentDate, 1);
+  setupDatePicker();
+});
 setDate(new Date());
 },{"date-fns":"node_modules/date-fns/esm/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
