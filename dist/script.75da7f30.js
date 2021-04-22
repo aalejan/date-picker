@@ -18979,6 +18979,8 @@ var _dateFns = require("date-fns");
 var datePickerBtn = document.querySelector('.date-picker-button');
 var datePicker = document.querySelector('.date-picker');
 var datePickerHeaderText = document.querySelector('.current-month');
+var prevMonthButton = documet.querySelector('.prev-month-button');
+var nextMonthButton = document.querySelector('.next-month-button');
 datePickerBtn.addEventListener('click', function (e) {
   datePicker.classList.toggle('show');
   var selectedDate = (0, _dateFns.fromUnixTime)(datePickerBtn.dataset.selectedDate);
@@ -18991,7 +18993,14 @@ function setDate(date) {
 }
 
 function setupDatePicker(selectedDate) {
-  console.log(selectedDate);
+  datePickerHeaderText.innerText = (0, _dateFns.format)(selectedDate, 'MMMM - yyyy');
+  setUpMonthButtons(selectedDate);
+}
+
+function setUpMonthButtons(selectedDate) {
+  nextMonthButton.addEventListener('click', function () {
+    setupDatePicker(selectedDate);
+  });
 }
 
 setDate(new Date());
