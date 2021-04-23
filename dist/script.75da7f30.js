@@ -19012,17 +19012,32 @@ function setupDates(selectedDate) {
     var dateElement = document.createElement('button');
     dateElement.classList.add('date');
     dateElement.innerText = date.getDate();
+
+    if (!(0, _dateFns.isSameMonth)(date, currentDate)) {
+      dateElement.classList.add('date-picker-other-month-date');
+    }
+
+    if ((0, _dateFns.isSameDay)(date, selectedDate)) {
+      dateElement.classList.add('selected');
+    }
+
+    dateElement.addEventListener('click', function () {
+      setDate(date);
+      datePicker.classList.remove('show');
+    });
     dateGrid.appendChild(dateElement);
   });
 }
 
 nextMonthButton.addEventListener('click', function () {
+  var selectedDate = (0, _dateFns.fromUnixTime)(datePickerBtn.dataset.selectedDate);
   setupDatePicker((0, _dateFns.addMonths)(currentDate, 1));
-  setupDatePicker();
+  setupDatePicker(selectedDate);
 });
 prevMonthButton.addEventListener('click', function () {
+  var selectedDate = (0, _dateFns.fromUnixTime)(datePickerBtn.dataset.selectedDate);
   currentDate = (0, _dateFns.subMonths)(currentDate, 1);
-  setupDatePicker();
+  setupDatePicker(selectedDate);
 });
 setDate(new Date());
 },{"date-fns":"node_modules/date-fns/esm/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
