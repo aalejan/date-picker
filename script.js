@@ -33,7 +33,10 @@ function setupDates(selectedDate){
     dateGrid.innerHTML = ''
 
     dates.forEach(date => {
-        const dateElem
+        const dateElement = document.createElement('button')
+        dateElement.classList.add('date')
+        dateElement.innerText = date.getDate()
+        dateGrid.appendChild(dateElement)
     })
 }
 

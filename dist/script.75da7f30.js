@@ -19009,7 +19009,10 @@ function setupDates(selectedDate) {
   });
   dateGrid.innerHTML = '';
   dates.forEach(function (date) {
-    console.log(date);
+    var dateElement = document.createElement('button');
+    dateElement.classList.add('date');
+    dateElement.innerText = date.getDate();
+    dateGrid.appendChild(dateElement);
   });
 }
 
